@@ -127,11 +127,100 @@ exports.Select = void 0;
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-var Select = function Select() {
-  _classCallCheck(this, Select);
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+function _classPrivateMethodGet(receiver, privateSet, fn) { if (!privateSet.has(receiver)) { throw new TypeError("attempted to get private field on non-instance"); } return fn; }
+
+var getTemplate = function getTemplate() {
+  var data = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : [];
+  var placeholder = arguments.length > 1 ? arguments[1] : undefined;
+  var title = placeholder !== null && placeholder !== void 0 ? placeholder : 'Placeholder по умолчанию';
+  console.log(data);
+  return "\n  <div class=\"select-input\" data-type=\"input\">\n    <span>".concat(title, "</span>\n    <i class=\"fas fa-chevron-down\" data-type=\"arrow\"></i>\n  </div>\n  <div class=\"select-dropdown\">\n    <ul class=\"select-list\">\n      <li class=\"select-list__item\">1</li>\n      <li class=\"select-list__item\">2</li>\n      <li class=\"select-list__item\">3</li>\n      <li class=\"select-list__item\">4</li>\n    </ul>\n  </div>\n");
 };
 
+var _render = new WeakSet();
+
+var _setup = new WeakSet();
+
+var Select = /*#__PURE__*/function () {
+  function Select(selector, options) {
+    _classCallCheck(this, Select);
+
+    _setup.add(this);
+
+    _render.add(this);
+
+    this.elem = document.querySelector(selector);
+    this.options = options;
+
+    _classPrivateMethodGet(this, _render, _render2).call(this);
+
+    _classPrivateMethodGet(this, _setup, _setup2).call(this);
+  }
+
+  _createClass(Select, [{
+    key: "clickHundler",
+    value: function clickHundler(e) {
+      var type = e.target.dataset.type;
+
+      if (type === 'input') {
+        this.toggle();
+      }
+
+      console.log(type);
+    }
+  }, {
+    key: "toggle",
+    value: function toggle() {
+      this.isOpen ? this.close() : this.open();
+    }
+  }, {
+    key: "open",
+    value: function open() {
+      this.elem.classList.add('open');
+      this.arrow.classList.remove('fa-chevron-down');
+      this.arrow.classList.add('fa-chevron-up');
+    }
+  }, {
+    key: "close",
+    value: function close() {
+      this.elem.classList.remove('open');
+      this.arrow.classList.add('fa-chevron-down');
+      this.arrow.classList.remove('fa-chevron-up');
+    }
+  }, {
+    key: "destroy",
+    value: function destroy() {
+      this.elem.removeEventListener('click', this.clickHundler);
+    }
+  }, {
+    key: "isOpen",
+    get: function get() {
+      return this.elem.classList.contains('open');
+    }
+  }]);
+
+  return Select;
+}();
+
 exports.Select = Select;
+
+var _render2 = function _render2() {
+  var _this$options = this.options,
+      data = _this$options.data,
+      placeholder = _this$options.placeholder;
+  this.elem.classList.add('select');
+  this.elem.innerHTML = getTemplate(data, placeholder);
+};
+
+var _setup2 = function _setup2() {
+  this.clickHundler = this.clickHundler.bind(this);
+  this.elem.addEventListener('click', this.clickHundler);
+  this.arrow = document.querySelector('[data-type="arrow"]');
+};
 },{}],"../../../../AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/bundle-url.js":[function(require,module,exports) {
 var bundleURL = null;
 
@@ -211,7 +300,35 @@ var _select = require("./select/select");
 
 require("./select/style.scss");
 
-var select = new _select.Select();
+var select = new _select.Select('#select', {
+  placeholder: 'Выбери пожалуйста элемент',
+  data: [{
+    id: '1',
+    value: 'React'
+  }, {
+    id: '2',
+    value: 'Angular'
+  }, {
+    id: '3',
+    value: 'Vue'
+  }, {
+    id: '4',
+    value: 'React Native'
+  }, {
+    id: '5',
+    value: 'Next'
+  }, {
+    id: '6',
+    value: 'TypeScript'
+  }, {
+    id: '7',
+    value: 'RxJS'
+  }, {
+    id: '8',
+    value: 'Node.js'
+  }]
+});
+window.s = select;
 },{"./select/select":"select/select.js","./select/style.scss":"select/style.scss"}],"../../../../AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
@@ -240,7 +357,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "49610" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "59697" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

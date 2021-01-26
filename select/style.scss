@@ -20,14 +20,6 @@ body {
 .select {
   width: 100%;
   position: relative;
-  .open {
-    .select-dropdown {
-      /* display: block; */
-    }
-    .select-input {
-      border-bottom: none;
-    }
-  }
   &-input {
     border: 1px solid #ccc;
     border-radius: 5px;
@@ -48,7 +40,7 @@ body {
     max-height: 200px;
     overflow-y: auto;
     box-shadow: 2px 3px 5px rgb(0, 0, 0, 0.3);
-    /* display: none; */
+    display: none;
   }
 
   &-list {
@@ -65,5 +57,13 @@ body {
         transition: 0.2s background-color ease-in;
       }
     }
+  }
+}
+.open {
+  .select-dropdown {
+    display: block;
+  }
+  .select-input {
+    border-bottom: none;
   }
 }
