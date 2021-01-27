@@ -16,9 +16,20 @@ body {
   width: 500px;
 }
 
+.select-backdrop {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  display: none;
+}
+
 .select {
+  z-index: 10px;
   width: 100%;
   position: relative;
+  cursor: pointer;
 }
 .select-input {
   border: 1px solid #ccc;
@@ -51,6 +62,10 @@ body {
   padding: 1rem;
   border-bottom: 1px solid #ccc;
 }
+.select-list .select-list__item.selected {
+  background-color: #ccc;
+  color: #4d4c4c;
+}
 .select-list .select-list__item:hover {
   color: #4d4c4c;
   background-color: #ccc;
@@ -63,6 +78,9 @@ body {
 }
 .open .select-input {
   border-bottom: none;
+}
+.open .select-backdrop {
+  display: block;
 }
 
 /*# sourceMappingURL=/select.e31bb0bc.css.map */
